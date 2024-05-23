@@ -1,0 +1,20 @@
+provider "aws" {
+  region = "ap-south-1"
+}
+
+terraform {
+  required_version = "~> 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.63"
+    }
+  }
+
+  backend "s3" {
+    bucket               = "aws-smb-pavan-state-file"
+    key                  = "Basic-backend-s3-bucket-statefile-test.tfstate"
+    workspace_key_prefix = "workspaces"
+    region               = "ap-south-1"
+  }
+}
