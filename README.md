@@ -1,0 +1,1 @@
+# terraform-code-for-all-aws-services
