@@ -1,6 +1,7 @@
 locals {
-    name_vpc_cluster = "My-test-pavan-personal-vpc"
+  name_vpc_cluster = "My-test-pavan-personal-vpc"
 }
+
 
 module "vpc" {
 
@@ -14,13 +15,14 @@ module "vpc" {
   enable_dns_support   = true
 
   azs             = var.vpc_azs
+  public_subnets  = var.vpc_public_subnets_cluster
   private_subnets = var.vpc_private_subnets_cluster
   #database_subnets = var.vpc_database_subnets_cluster
 
   manage_default_security_group  = true
   default_security_group_ingress = [{}]
   default_security_group_egress  = [{}]
-  
+
   /*
   enable_flow_log                                 = false
   #flow_log_cloudwatch_log_group_retention_in_days = var.flow_log_cloudwatch_log_group_retention_in_days

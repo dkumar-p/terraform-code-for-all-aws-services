@@ -1,6 +1,6 @@
 ######################### security group ###########################################
 locals {
-  name_sg    = "My-test-pavan-personal-SG"
+  name_sg = "My-test-pavan-personal-SG"
 }
 
 
@@ -26,10 +26,29 @@ module "security_group_ec2" {
 
 
 resource "aws_security_group_rule" "port_3899" {
-  type = "ingress"
-  from_port = 3899
-  to_port = 3899
-  protocol = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = 3899
+  to_port           = 3899
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.security_group_ec2.security_group_id
+}
+
+
+resource "aws_security_group_rule" "port_80" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.security_group_ec2.security_group_id
+}
+
+resource "aws_security_group_rule" "port_8080" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = module.security_group_ec2.security_group_id
 }
