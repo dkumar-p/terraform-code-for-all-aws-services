@@ -8,13 +8,15 @@ module "ec2_instance_1" {
 
   name = local.ec2_name_1
 
-  ami                    = var.ami_master
-  instance_type          = var.instance_type_1
-  key_name               = ""
-  monitoring             = false
-  #iam_instance_profile   = ""
-  vpc_security_group_ids = [module.security_group_ec2.security_group_id]
-  subnet_id              = element(module.vpc.private_subnets, 0)
+  ami                         = var.ami_master
+  instance_type               = var.instance_type_1
+  key_name                    = "pavan-test-keypair"
+  monitoring                  = false
+  iam_instance_profile        = "AmazonSSMRoleForInstancesQuickSetup"
+  vpc_security_group_ids      = [module.security_group_ec2.security_group_id]
+  subnet_id                   = element(module.vpc.public_subnets, 0)
+  private_ip                  = "10.0.0.14"
+  associate_public_ip_address = true
 
   enable_volume_tags = false
   root_block_device = [
@@ -31,20 +33,10 @@ module "ec2_instance_1" {
     },
   ]
 
-  ebs_block_device = [
-    {
-      device_name = "/dev/sdf"
-      volume_type = "gp2"
-      volume_size = 5
-      throughput  = 200
-      encrypted   = true
-    }
-  ]
- 
-  #user_data = file("backoffice-finance--sla3--ews--infra-8015.sh")
+  user_data = file("script.sh")
 
 
-  tags = merge(var.tags, 
+  tags = merge(var.tags,
     {
       "Name" = local.ec2_name_1
     }
