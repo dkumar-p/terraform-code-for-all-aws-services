@@ -29,19 +29,9 @@ pipeline{
                 sh 'terraform plan'
             }
         }
-        stage("Build"){
+                stage("Terraform apply"){
             steps{
-                echo "========executing Build========"
-            }
-        }
-        stage("Test"){
-            steps{
-                echo "========executing Test========"
-            }
-        }
-        stage("Deploy"){
-            steps{
-                echo "========executing Deploy========"
+                sh 'terraform apply'
             }
         }
     }
