@@ -29,11 +29,16 @@ pipeline{
                 sh 'terraform plan'
             }
         }
+        stage('User Approval') {
+            steps {
+                input message: 'Approve Terraform plan?', parameters: [string(name: 'APPROVE', defaultValue: 'no', description: 'Type "yes" to approve')]
+            }
+        }
         stage('Apply Terraform') {
             when {
                 expression { params.APPROVE == 'yes' }
             }
-        steps {
+            steps {
             sh 'terraform apply -auto-approve'
             }
         }
