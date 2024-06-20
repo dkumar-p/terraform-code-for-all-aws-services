@@ -35,11 +35,8 @@ pipeline{
             }
         }
         stage('Apply Terraform') {
-            when {
-                expression { params.APPROVE == 'yes' }
-            }
             steps {
-            sh 'terraform apply -auto-approve'
+                sh 'terraform apply -auto-approve'
             }
         }
 
