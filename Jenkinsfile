@@ -1,9 +1,14 @@
 pipeline{
     agent any
     stages{
+        stage("Git access"){
+        steps{
+            git branch: 'main', url: 'https://github.com/dkumar-p/terraform-code-for-all-aws-services.git'
+           }
+        }
         stage("AWS Credentials"){
         steps {
-            withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'jenkins-test-user', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'jenkins-git-integration', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                 sh 'echo $AWS_ACCESS_KEY_ID'
                 sh 'echo $AWS_SECRET_ACCESS_KEY'
             }

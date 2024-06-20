@@ -1,5 +1,6 @@
 locals {
-  ec2_name_1 = "AWS-SMB-Training_servers"
+  ec2_name_1 = "AWS-SMB-Training_servers_1"
+  ec2_name_2 = "AWS-SMB-Training_servers_2"
 }
 
 module "ec2_instance_1" {
@@ -63,7 +64,7 @@ module "ec2_instance_2" {
 
   source = "github.com/dkumar-p/terraform-aws-ec2-instance.git"
 
-  name = local.ec2_name_1
+  name = local.ec2_name_2
 
   ami                         = var.ami_master
   instance_type               = var.instance_type_1
@@ -95,7 +96,7 @@ module "ec2_instance_2" {
 
   tags = merge(var.tags,
     {
-      "Name" = local.ec2_name_1
+      "Name" = local.ec2_name_2
     }
   )
 }
